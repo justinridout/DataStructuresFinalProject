@@ -3,12 +3,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.swing.JFrame;
+
 import DataStructures.LinkedList;
 import DataStructures.Map;
 import POJOs.Client;
 import POJOs.Registration;
 import POJOs.Trainer;
 import POJOs.TrainingClass;
+import views.AddClientPanel;
 
 public class Driver {
 
@@ -18,7 +21,7 @@ public class Driver {
 	static Trainer me = new Trainer("Justin", "Ridout", "515-515-5151");
 	
 	public static void main(String[] args) {
-		TrainingClass weights = new TrainingClass("Weight Training", "Build Strength");
+		/*TrainingClass weights = new TrainingClass("Weight Training", "Build Strength");
 		TrainingClass crossfit = new TrainingClass("Crossfit", "Nobody likes this");
 		TrainingClass biking = new TrainingClass("Biking", "Fun Motivated Cardio");
 		
@@ -34,7 +37,15 @@ public class Driver {
 		Registration r = new Registration(c, LocalDate.parse("2020-03-12"), "Strength", weights);
 		registeredClients.insertion(r);
 		
-		showMenu();
+		showMenu();*/
+		
+		JFrame frame = new JFrame();
+		AddClientPanel panel = new AddClientPanel(clients);
+		frame.add(panel);
+
+		frame.setSize(200, 375);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
 		
 		
 	}
