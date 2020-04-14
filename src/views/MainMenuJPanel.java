@@ -5,9 +5,14 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import DataStructures.LinkedList;
+import DataStructures.Map;
+import POJOs.TrainingClass;
+
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class MainMenuJPanel extends JPanel{
 	
@@ -15,9 +20,17 @@ public class MainMenuJPanel extends JPanel{
 	JButton btnJoinClass = new JButton("Sign Up for Class");
 	JButton btnShowClients = new JButton("Show All Clients");
 	JButton btnShowRegisteredClients = new JButton("Show Registered Clients");
+	Map clients;
+	LinkedList registered;
+	List<TrainingClass> classes;
 
 
-	public MainMenuJPanel() {
+	public MainMenuJPanel(Map clients, LinkedList registered, List<TrainingClass> classes) {
+		
+		this.clients = clients;
+		this.registered = registered;
+		this.classes = classes;
+		
 		JLabel title = new JLabel("Please select an option from the menu");
 		
 		ButtonListener bl = new ButtonListener();
@@ -46,16 +59,16 @@ public class MainMenuJPanel extends JPanel{
 		public void actionPerformed(ActionEvent event) {
 			JPanel panel = new JPanel();
 			if(event.getSource() == btnAddClient) {
-				panel = new AddClientPanel();
+				panel = new AddClientPanel(clients, registered, classes);
 			}
 			else if (event.getSource() == btnJoinClass) {
-				panel = new JoinClassPanel();
+				panel = new SignUpPanel(clients, registered, classes);
 			}
 			else if (event.getSource() == btnShowClients) {
-				panel = new ShowClientsPanel();
+				panel = new ShowClientsPanel(clients, registered, classes);
 			}
 			else if (event.getSource() == btnShowRegisteredClients) {
-				panel = new ShowRegisterdPanel();
+				panel = new ShowRegisteredClientsPanel(clients, registered, classes);
 			}
 			
 			showNewPanel(panel);
@@ -67,6 +80,7 @@ public class MainMenuJPanel extends JPanel{
 			add(panel);
 			validate();
 			setVisible(true);
+			repaint();
 		}
 		
 	}

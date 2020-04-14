@@ -1,5 +1,7 @@
 package DataStructures;
 
+import java.time.LocalDate;
+
 import POJOs.Registration;
 
 /**
@@ -49,28 +51,6 @@ public class LinkedList {
 
 	}
 
-	//Function sorts the list based on the company name. Taking in the list as the paramater to get the first location
-	/*private void sort() {
-
-		Client temp = null;		//Setting temp to null. This will be used to swap data
-
-		for (int ol = 0; ol <= size; ol++) {
-			LinkedNode traverse = this.head; // Creating this node to traverse the list to find the last element
-			while (traverse.next != null) {
-				
-				//does the comparison and swaps them accordingly 
-				if (traverse.data.getCompany().compareTo(traverse.next.data.getCompany()) > 0) {
-					temp = traverse.data;
-					traverse.data = traverse.next.data;
-					traverse.next.data = temp;
-				}
-				//goes to next node
-				traverse = traverse.next;
-			}
-
-		}
-
-	}*/
 
 	//method just deletes the element in the first location
 	public Registration deletion() {
@@ -152,6 +132,36 @@ public class LinkedList {
 		}
 
 		return printString;
+	}
+	
+	public Registration[] toArray(){
+		Registration[] r = new Registration[this.size];
+		LinkedNode traverse = this.head;
+		
+		int index = 0;
+		while (traverse != null) {
+			r[index] = traverse.data;
+			traverse = traverse.next;
+			index++;
+		}
+		
+		bubbleSort(r);
+		return r;
+	}
+	
+	public void bubbleSort(Registration[] r) {
+		Registration[] temp = new Registration[this.size];
+		
+		for(int i = 0; i < this.size - 1; i++) {
+			for(int il = 0; il < this.size-i-1; il++) {
+				if(r[il].getStartDate().compareTo(r[il+1].getStartDate()) > 0) {
+					Registration t = r[il];
+					r[il] = r[il + 1];
+					r[il+1] = t;
+				}
+			}
+		}
+		
 	}
 
 	

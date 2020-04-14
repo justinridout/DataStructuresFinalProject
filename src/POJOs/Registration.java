@@ -70,8 +70,7 @@ public class Registration {
 
 	@Override
 	public String toString() {
-		return client + ", Start Date: " + startDate + ", End Date: " + endDate + ", goal: " + goal
-				+ ", Class: " + tClass.getName();
+		return client.getFirstName() + ", " + client.getLastName() + ", Start: " + this.getStartDate();
 	}
 	
 	

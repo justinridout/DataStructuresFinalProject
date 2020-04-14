@@ -12,16 +12,18 @@ import POJOs.Registration;
 import POJOs.Trainer;
 import POJOs.TrainingClass;
 import views.AddClientPanel;
+import views.MainMenuJPanel;
+import views.SignUpPanel;
 
 public class Driver {
 
 	static LinkedList registeredClients = new LinkedList();
-	static Map clients = new Map();
+	public static Map clients = new Map();
 	static Scanner in = new Scanner(System.in);
 	static Trainer me = new Trainer("Justin", "Ridout", "515-515-5151");
 	
 	public static void main(String[] args) {
-		/*TrainingClass weights = new TrainingClass("Weight Training", "Build Strength");
+		TrainingClass weights = new TrainingClass("Weight Training", "Build Strength");
 		TrainingClass crossfit = new TrainingClass("Crossfit", "Nobody likes this");
 		TrainingClass biking = new TrainingClass("Biking", "Fun Motivated Cardio");
 		
@@ -30,7 +32,7 @@ public class Driver {
 		justinsClasses.add(crossfit);
 		justinsClasses.add(biking);
 		
-		me.setClasses(justinsClasses);
+		/*me.setClasses(justinsClasses);
 		
 		Client c = new Client("Justin", "Ridout", "123", "123", "123");
 		clients.insert(c.getEmail(), c);
@@ -40,10 +42,10 @@ public class Driver {
 		showMenu();*/
 		
 		JFrame frame = new JFrame();
-		AddClientPanel panel = new AddClientPanel(clients);
+		MainMenuJPanel panel = new MainMenuJPanel(clients, registeredClients, justinsClasses);
 		frame.add(panel);
 
-		frame.setSize(200, 375);
+		frame.setSize(500, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		

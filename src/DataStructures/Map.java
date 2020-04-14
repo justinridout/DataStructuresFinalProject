@@ -172,5 +172,19 @@ public class Map {
 
 		return printString;
 	}
+	
+	public Client[] toArray() {
+		Client[] clients = new Client[this.numOfClients];
+		Node traverse = this.head;
+		int index = 0;
+		
+		while (traverse != null) {
+			clients[index] = traverse.value;
+			traverse = traverse.next;
+			index++;
+		}
+		
+		return clients;
+	}
 
 }

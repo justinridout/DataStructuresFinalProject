@@ -62,8 +62,12 @@ public class Client {
 
 	@Override
 	public String toString() {
-		return "First Name: " + firstName + ", Last Name: " + lastName + ", Email: " + email +  " Address:" + address
-				+ ", Phone Number :" + phoneNumber;
+		return firstName + ", " + lastName;
+	}
+	
+	public String displayInfo() {
+		
+		return null;
 	}
 	
 	

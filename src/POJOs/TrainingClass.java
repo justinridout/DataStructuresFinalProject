@@ -28,7 +28,7 @@ public class TrainingClass {
 
 	@Override
 	public String toString() {
-		return "TrainingClass [name=" + name + ", description=" + description + "]";
+		return name;
 	}
 	
 	
