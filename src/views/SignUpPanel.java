@@ -25,6 +25,7 @@ import DataStructures.LinkedList;
 import DataStructures.Map;
 import POJOs.Client;
 import POJOs.Registration;
+import POJOs.Trainer;
 import POJOs.TrainingClass;
 import views.AddClientPanel.ButtonListener;
 
@@ -34,7 +35,7 @@ public class SignUpPanel extends JPanel {
 	private JTextField txtGoal;
 	private JTextField txtEmail;
 	private JComboBox<?> trainingClassDropDown;
-	// ADD DROP DOWN
+	
 	// Add list to select trainer from
 
 	JButton btnClear = new JButton("Clear");
@@ -44,6 +45,7 @@ public class SignUpPanel extends JPanel {
 	Map clients;
 	LinkedList RegClients;
 	List<TrainingClass> trainingClasses;
+	List<Trainer> trainers;
 
 	class ButtonListener implements ActionListener {
 
@@ -67,7 +69,14 @@ public class SignUpPanel extends JPanel {
 
 								RegClients.insertion(regToAdd);
 
-								// Add Thank you Pane
+								removeAll();
+								setVisible(false);
+								ThankYouPanel newPanel = new ThankYouPanel(clients, RegClients, trainingClasses, trainers);
+								add(newPanel);
+								validate();
+								setVisible(true);
+								repaint();
+								
 							} else {
 								JOptionPane.showMessageDialog(null, "Please select a Training Class");
 							}
@@ -77,7 +86,7 @@ public class SignUpPanel extends JPanel {
 
 							removeAll();
 							setVisible(false);
-							AddClientPanel newPanel = new AddClientPanel(clients, RegClients, trainingClasses);
+							AddClientPanel newPanel = new AddClientPanel(clients, RegClients, trainingClasses, trainers);
 							add(newPanel);
 							validate();
 							setVisible(true);
@@ -96,7 +105,7 @@ public class SignUpPanel extends JPanel {
 
 				removeAll();
 				setVisible(false);
-				MainMenuJPanel newPanel = new MainMenuJPanel(clients, RegClients, trainingClasses);
+				ClientMainMenuPanel newPanel = new ClientMainMenuPanel(clients, RegClients, trainingClasses, trainers);
 				add(newPanel);
 				validate();
 				setVisible(true);
@@ -115,11 +124,12 @@ public class SignUpPanel extends JPanel {
 
 	}
 
-	public SignUpPanel(Map clients, LinkedList reg, List<TrainingClass> trainingClasses) {
+	public SignUpPanel(Map clients, LinkedList reg, List<TrainingClass> trainingClasses, List<Trainer> trainers) {
 
 		this.clients = clients;
 		this.RegClients = reg;
 		this.trainingClasses = trainingClasses;
+		this.trainers = trainers;
 
 		JPanel form = new JPanel();
 
@@ -168,7 +178,6 @@ public class SignUpPanel extends JPanel {
 
 		ButtonListener bl = new ButtonListener();
 
-		// Needed to add this inline to grab value out of combo box
 		btnSubmit.addActionListener(bl);
 		btnClear.addActionListener(bl);
 		btnMainMenu.addActionListener(bl);

@@ -4,24 +4,27 @@ import java.util.List;
 
 public class Trainer {
 
-	public String firstName;
-	public String lastName;
-	public String phoneNumber;
-	public List<TrainingClass> classes;
+	private String firstName;
+	private String lastName;
+	private String password;
+	private String phoneNumber;
+	private List<TrainingClass> classes;
 	
 	public Trainer() {
 		
 	}
 	
-	public Trainer(String f, String l, String p) {
+	public Trainer(String f, String l, String password, String p) {
 		this.firstName = f;
 		this.lastName = l;
+		this.password = password;
 		this.phoneNumber = p;
 	}
 	
-	public Trainer(String f, String l, String p, List<TrainingClass> c) {
+	public Trainer(String f, String l, String password, String p, List<TrainingClass> c) {
 		this.firstName = f;
 		this.lastName = l;
+		this.password = password;
 		this.phoneNumber = p;
 		this.classes = c;
 	}
@@ -53,6 +56,20 @@ public class Trainer {
 	public List<TrainingClass> getClasses() {
 		return classes;
 	}
+	
+	public TrainingClass[] getClassesArray() {
+		TrainingClass[] t = new TrainingClass[this.classes.size()];
+		
+		for(int i = 0; i < this.classes.size(); i++) {
+			t[i] = this.classes.get(i);
+		}
+		
+		for(TrainingClass te : t) {
+			System.out.print(te.toString());
+		}
+		
+		return t;
+	}
 
 	public String getClassesDescription() {
 		String printString = "";
@@ -65,6 +82,19 @@ public class Trainer {
 
 	public void setClasses(List<TrainingClass> classes) {
 		this.classes = classes;
+	}
+	
+	public void addClass(TrainingClass toAdd) {
+		this.classes.add(toAdd);
+	}
+	
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	@Override

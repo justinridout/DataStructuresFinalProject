@@ -18,18 +18,21 @@ import DataStructures.LinkedList;
 import DataStructures.Map;
 import POJOs.Client;
 import POJOs.Registration;
+import POJOs.Trainer;
 import POJOs.TrainingClass;
 import views.ShowClientsPanel.ButtonListener;
 
 public class ShowRegisteredClientsPanel extends JPanel{
 
 	
-	JButton btnMainMenu = new JButton("Main Menu");
+	JButton btnMainMenu = new JButton("Back");
 	JButton btnViewClient = new JButton("View Client Details");
 
 	Map clients;
 	LinkedList RegClients;
 	List<TrainingClass> trainingClasses;
+	List<Trainer> trainers;
+	Trainer verfied;
 	
 	class ButtonListener implements ActionListener {
 
@@ -39,7 +42,7 @@ public class ShowRegisteredClientsPanel extends JPanel{
 			if(e.getSource() == btnMainMenu) {
 				removeAll();
 				setVisible(false);
-				MainMenuJPanel newPanel = new MainMenuJPanel(clients, RegClients, trainingClasses);
+				VerifiedTrainerMenu newPanel = new VerifiedTrainerMenu(clients, RegClients, trainingClasses, trainers, verfied);
 				add(newPanel);
 				validate();
 				setVisible(true);
@@ -49,10 +52,12 @@ public class ShowRegisteredClientsPanel extends JPanel{
 
 	}
 	
-	public ShowRegisteredClientsPanel(Map clients, LinkedList reg, List<TrainingClass> trainingClasses) {
+	public ShowRegisteredClientsPanel(Map clients, LinkedList reg, List<TrainingClass> trainingClasses, List<Trainer> trainers, Trainer t) {
 		this.clients = clients;
 		this.RegClients = reg;
 		this.trainingClasses = trainingClasses;
+		this.trainers = trainers;
+		this.verfied = t;
 		
 		Registration[] arrayClients = RegClients.toArray();
 		

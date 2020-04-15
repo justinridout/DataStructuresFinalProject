@@ -1,7 +1,6 @@
 package views;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -20,6 +19,7 @@ import javax.swing.JTextField;
 import DataStructures.LinkedList;
 import DataStructures.Map;
 import POJOs.Client;
+import POJOs.Trainer;
 import POJOs.TrainingClass;
 
 public class AddClientPanel extends JPanel{
@@ -37,6 +37,7 @@ public class AddClientPanel extends JPanel{
 	Map client;
 	LinkedList RegClients;
 	List<TrainingClass> trainingClasses;
+	List<Trainer> trainers;
 	
 	class ButtonListener implements ActionListener{
 
@@ -55,7 +56,12 @@ public class AddClientPanel extends JPanel{
 					toAdd = new Client(txtFirstName.getText(), txtLastName.getText(), txtAddress.getText(), txtPhoneNumber.getText(), txtEmail.getText());
 					client.insert(toAdd.getEmail(), toAdd);
 					
-					//Add Thank you pane
+					removeAll();
+					ThankYouPanel newPanel = new ThankYouPanel(client, RegClients, trainingClasses, trainers);
+					add(newPanel);
+					validate();
+					setVisible(true);
+					repaint();
 				}
 				
 				
@@ -67,7 +73,7 @@ public class AddClientPanel extends JPanel{
 			} else if (e.getSource() == btnMainMenu) {
 
 				removeAll();
-				MainMenuJPanel newPanel = new MainMenuJPanel(client, RegClients, trainingClasses);
+				ClientMainMenuPanel newPanel = new ClientMainMenuPanel(client, RegClients, trainingClasses, trainers);
 				add(newPanel);
 				validate();
 				setVisible(true);
@@ -103,11 +109,12 @@ public class AddClientPanel extends JPanel{
 		
 	}
 	
-	public AddClientPanel(Map clients, LinkedList reg, List<TrainingClass> trainingClasses) {
+	public AddClientPanel(Map clients, LinkedList reg, List<TrainingClass> trainingClasses, List<Trainer> trainers) {
 		
 		this.RegClients = reg;
 		this.trainingClasses = trainingClasses;
 		this.client = clients;
+		this.trainers = trainers;
 		
 		
 

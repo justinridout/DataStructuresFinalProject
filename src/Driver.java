@@ -12,7 +12,8 @@ import POJOs.Registration;
 import POJOs.Trainer;
 import POJOs.TrainingClass;
 import views.AddClientPanel;
-import views.MainMenuJPanel;
+import views.ClientMainMenuPanel;
+import views.MainMenuPanel;
 import views.SignUpPanel;
 
 public class Driver {
@@ -20,7 +21,7 @@ public class Driver {
 	static LinkedList registeredClients = new LinkedList();
 	public static Map clients = new Map();
 	static Scanner in = new Scanner(System.in);
-	static Trainer me = new Trainer("Justin", "Ridout", "515-515-5151");
+	static Trainer me = new Trainer("Justin", "Ridout", "Test", "515-515-5151");
 	
 	public static void main(String[] args) {
 		TrainingClass weights = new TrainingClass("Weight Training", "Build Strength");
@@ -28,6 +29,9 @@ public class Driver {
 		TrainingClass biking = new TrainingClass("Biking", "Fun Motivated Cardio");
 		
 		List<TrainingClass> justinsClasses = new ArrayList<TrainingClass>();
+		me.setClasses(justinsClasses);
+		List<Trainer> trainers = new ArrayList<Trainer>();
+		trainers.add(me);
 		justinsClasses.add(weights);
 		justinsClasses.add(crossfit);
 		justinsClasses.add(biking);
@@ -42,7 +46,7 @@ public class Driver {
 		showMenu();*/
 		
 		JFrame frame = new JFrame();
-		MainMenuJPanel panel = new MainMenuJPanel(clients, registeredClients, justinsClasses);
+		MainMenuPanel panel = new MainMenuPanel(clients, registeredClients, justinsClasses, trainers);
 		frame.add(panel);
 
 		frame.setSize(500, 500);

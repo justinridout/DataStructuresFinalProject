@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 import DataStructures.LinkedList;
 import DataStructures.Map;
+import POJOs.Trainer;
 import POJOs.TrainingClass;
 
 import java.awt.BorderLayout;
@@ -14,19 +15,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class MainMenuJPanel extends JPanel{
+public class ClientMainMenuPanel extends JPanel{
 	
-	JButton btnAddClient = new JButton("Add Client");
+	JButton btnAddClient = new JButton("Client Sign Up");
 	JButton btnJoinClass = new JButton("Sign Up for Class");
-	JButton btnShowClients = new JButton("Show All Clients");
-	JButton btnShowRegisteredClients = new JButton("Show Registered Clients");
+	JButton btnBack = new JButton("Back");
+	
 	Map clients;
 	LinkedList registered;
 	List<TrainingClass> classes;
+	List<Trainer> trainers;
 
 
-	public MainMenuJPanel(Map clients, LinkedList registered, List<TrainingClass> classes) {
+	public ClientMainMenuPanel(Map clients, LinkedList registered, List<TrainingClass> classes, List<Trainer> trainers) {
 		
+		this.trainers = trainers;
 		this.clients = clients;
 		this.registered = registered;
 		this.classes = classes;
@@ -36,8 +39,8 @@ public class MainMenuJPanel extends JPanel{
 		ButtonListener bl = new ButtonListener();
 		btnAddClient.addActionListener(bl);
 		btnJoinClass.addActionListener(bl);
-		btnShowClients.addActionListener(bl);
-		btnShowRegisteredClients.addActionListener(bl);
+		btnBack.addActionListener(bl);
+		
 		
 		JPanel buttons = new JPanel();
 		
@@ -46,8 +49,8 @@ public class MainMenuJPanel extends JPanel{
 		buttons.setLayout(new BoxLayout(buttons, BoxLayout.PAGE_AXIS));
 		buttons.add(btnAddClient);
 		buttons.add(btnJoinClass);
-		buttons.add(btnShowClients);
-		buttons.add(btnShowRegisteredClients);
+		buttons.add(btnBack);
+		
 		
 		add(buttons, BorderLayout.CENTER);
 		
@@ -59,16 +62,13 @@ public class MainMenuJPanel extends JPanel{
 		public void actionPerformed(ActionEvent event) {
 			JPanel panel = new JPanel();
 			if(event.getSource() == btnAddClient) {
-				panel = new AddClientPanel(clients, registered, classes);
+				panel = new AddClientPanel(clients, registered, classes, trainers);
 			}
 			else if (event.getSource() == btnJoinClass) {
-				panel = new SignUpPanel(clients, registered, classes);
+				panel = new SignUpPanel(clients, registered, classes, trainers);
 			}
-			else if (event.getSource() == btnShowClients) {
-				panel = new ShowClientsPanel(clients, registered, classes);
-			}
-			else if (event.getSource() == btnShowRegisteredClients) {
-				panel = new ShowRegisteredClientsPanel(clients, registered, classes);
+			else if (event.getSource() == btnBack) {
+				panel = new MainMenuPanel(clients, registered, classes, trainers);
 			}
 			
 			showNewPanel(panel);

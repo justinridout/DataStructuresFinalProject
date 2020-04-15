@@ -28,7 +28,7 @@ public class TrainingClass {
 
 	@Override
 	public String toString() {
-		return name;
+		return name + ", " + description;
 	}
 	
 	
