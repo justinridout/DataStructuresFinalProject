@@ -25,7 +25,6 @@ public class ViewTrainingClassesPanel extends JPanel {
 
 	Map clients;
 	LinkedList RegClients;
-	List<TrainingClass> trainingClasses;
 	List<Trainer> trainers;
 	Trainer verfied;
 
@@ -37,7 +36,7 @@ public class ViewTrainingClassesPanel extends JPanel {
 			if (e.getSource() == btnBack) {
 				removeAll();
 				setVisible(false);
-				VerifiedTrainerMenu newPanel = new VerifiedTrainerMenu(clients, RegClients, trainingClasses, trainers,
+				VerifiedTrainerMenu newPanel = new VerifiedTrainerMenu(clients, RegClients, trainers,
 						verfied);
 				add(newPanel);
 				validate();
@@ -48,11 +47,10 @@ public class ViewTrainingClassesPanel extends JPanel {
 
 	}
 
-	public ViewTrainingClassesPanel(Map clients, LinkedList reg, List<TrainingClass> trainingClasses,
+	public ViewTrainingClassesPanel(Map clients, LinkedList reg,
 			List<Trainer> trainers, Trainer t) {
 		this.clients = clients;
 		this.RegClients = reg;
-		this.trainingClasses = trainingClasses;
 		this.trainers = trainers;
 		this.verfied = t;
 

@@ -26,11 +26,10 @@ public class MainMenuPanel extends JPanel{
 	List<TrainingClass> classes;
 	List<Trainer> trainers;
 	
-	public MainMenuPanel(Map clients, LinkedList registered, List<TrainingClass> classes, List<Trainer> trainers) {
+	public MainMenuPanel(Map clients, LinkedList registered, List<Trainer> trainers) {
 		
 		this.clients = clients;
 		this.registered = registered;
-		this.classes = classes;
 		this.trainers = trainers;
 		
 		JLabel title = new JLabel("Please select an option from the menu");
@@ -57,10 +56,10 @@ public class MainMenuPanel extends JPanel{
 		public void actionPerformed(ActionEvent event) {
 			JPanel panel = new JPanel();
 			if(event.getSource() == btnClient) {
-				panel = new ClientMainMenuPanel(clients, registered, classes, trainers);
+				panel = new ClientMainMenuPanel(clients, registered, trainers);
 			}
 			else if (event.getSource() == btnTrainer) {
-				panel = new TrainerMainMenuPanel(clients, registered, classes, trainers);
+				panel = new TrainerMainMenuPanel(clients, registered, trainers);
 			}
 			
 			showNewPanel(panel);

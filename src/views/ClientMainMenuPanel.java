@@ -18,27 +18,26 @@ import java.util.List;
 public class ClientMainMenuPanel extends JPanel{
 	
 	JButton btnAddClient = new JButton("Client Sign Up");
-	JButton btnJoinClass = new JButton("Sign Up for Class");
+	JButton btnLogin = new JButton("Client Login");
 	JButton btnBack = new JButton("Back");
 	
 	Map clients;
 	LinkedList registered;
-	List<TrainingClass> classes;
 	List<Trainer> trainers;
 
 
-	public ClientMainMenuPanel(Map clients, LinkedList registered, List<TrainingClass> classes, List<Trainer> trainers) {
+	public ClientMainMenuPanel(Map clients, LinkedList registered,  List<Trainer> trainers) {
 		
 		this.trainers = trainers;
 		this.clients = clients;
 		this.registered = registered;
-		this.classes = classes;
+		
 		
 		JLabel title = new JLabel("Please select an option from the menu");
 		
 		ButtonListener bl = new ButtonListener();
 		btnAddClient.addActionListener(bl);
-		btnJoinClass.addActionListener(bl);
+		btnLogin.addActionListener(bl);
 		btnBack.addActionListener(bl);
 		
 		
@@ -48,7 +47,7 @@ public class ClientMainMenuPanel extends JPanel{
 		add(title, BorderLayout.NORTH);
 		buttons.setLayout(new BoxLayout(buttons, BoxLayout.PAGE_AXIS));
 		buttons.add(btnAddClient);
-		buttons.add(btnJoinClass);
+		buttons.add(btnLogin);
 		buttons.add(btnBack);
 		
 		
@@ -62,13 +61,13 @@ public class ClientMainMenuPanel extends JPanel{
 		public void actionPerformed(ActionEvent event) {
 			JPanel panel = new JPanel();
 			if(event.getSource() == btnAddClient) {
-				panel = new AddClientPanel(clients, registered, classes, trainers);
+				panel = new AddClientPanel(clients, registered,trainers);
 			}
-			else if (event.getSource() == btnJoinClass) {
-				panel = new SignUpPanel(clients, registered, classes, trainers);
+			else if (event.getSource() == btnLogin) {
+				panel = new ClientSignInPanel(clients, registered, trainers);
 			}
 			else if (event.getSource() == btnBack) {
-				panel = new MainMenuPanel(clients, registered, classes, trainers);
+				panel = new MainMenuPanel(clients, registered, trainers);
 			}
 			
 			showNewPanel(panel);

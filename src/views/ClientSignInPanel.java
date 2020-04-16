@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -19,29 +18,27 @@ import com.jgoodies.forms.layout.RowSpec;
 
 import DataStructures.LinkedList;
 import DataStructures.Map;
+import POJOs.Client;
 import POJOs.Trainer;
 import POJOs.TrainingClass;
+import views.TrainerLogInPanel.ButtonListener;
 
-public class TrainerLogInPanel extends JPanel {
-
+public class ClientSignInPanel extends JPanel {
 	JButton btnSubmit = new JButton("Login");
 	JButton btnBack = new JButton("Back");
-	private JTextField txtFirstName;
-	private JTextField txtPassword;
+	private JTextField txtEmail;
 
 	Map clients;
 	LinkedList registered;
 	List<Trainer> trainers;
 
-	public TrainerLogInPanel(Map clients, LinkedList registered, List<Trainer> trainers) {
-
+	public ClientSignInPanel(Map clients, LinkedList registered, List<Trainer> trainers) {
 		this.clients = clients;
 		this.registered = registered;
 		this.trainers = trainers;
 
-		
 		JPanel form = new JPanel();
-		
+
 		form.setLayout(new FormLayout(
 				new ColumnSpec[] { FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
 						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
@@ -52,24 +49,15 @@ public class TrainerLogInPanel extends JPanel {
 						FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC,
 						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
 						FormSpecs.DEFAULT_ROWSPEC, }));
-		
-		JLabel title = new JLabel("Enter Login Information:");
+
+		JLabel title = new JLabel("Enter the email you signed up with:");
 		add(title, BorderLayout.NORTH);
 		
-		
-		JLabel lblFirstName = new JLabel("First Name:");
-		form.add(lblFirstName, "4, 4, right, default");
-		txtFirstName = new JTextField();
-		form.add(txtFirstName, "6, 4, fill, default");
-		txtFirstName.setColumns(10);
-
-		
-		JLabel lblPassword = new JLabel("Enter Password (Case sensitive):");
-		form.add(lblPassword, "4, 6, right, default");
-		txtPassword = new JTextField();
-		form.add(txtPassword, "6, 6, fill, default");
-		txtPassword.setColumns(10);
-
+		JLabel lblEmail = new JLabel("Email:");
+		form.add(lblEmail, "4, 4, right, default");
+		txtEmail = new JTextField();
+		form.add(txtEmail, "6, 4, fill, default");
+		txtEmail.setColumns(10);
 		
 		ButtonListener bl = new ButtonListener();
 		btnSubmit.addActionListener(bl);
@@ -88,34 +76,23 @@ public class TrainerLogInPanel extends JPanel {
 		public void actionPerformed(ActionEvent event) {
 			JPanel panel = new JPanel();
 			if(event.getSource() == btnSubmit) {
-				String firstName = txtFirstName.getText().toLowerCase();
-				String password = txtPassword.getText();
-				Trainer t;
+				String email = txtEmail.getText().toLowerCase();
 				
-				System.out.println(trainers.get(0));
+				Client c;
 				
-				for(int i = 0; i < trainers.size(); i++) {
-					t = trainers.get(i);
-					
-					if(t.getFirstName().toLowerCase().equals(firstName)) {
-						if(t.getPassword().equals(password)) {
-							panel = new VerifiedTrainerMenu(clients, registered, trainers, t);
-							showNewPanel(panel);
-						}
-						
-						else {
-							JOptionPane.showMessageDialog(null, "Password was incorrect");
-						}
-					}
-					else {
-						JOptionPane.showMessageDialog(null, "No Trainer in the system by that name");
-					}
+				if(clients.keyExists(email)) {
+					c = clients.getClient(email);
+					panel = new VerifiedClientMenu(clients, registered, trainers, c);
+					showNewPanel(panel);
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "There is no user under that email");
 				}
 				
 				
 			}
 			else if (event.getSource() == btnBack) {
-				panel = new TrainerMainMenuPanel(clients, registered, trainers);
+				panel = new ClientMainMenuPanel(clients, registered, trainers);
 				showNewPanel(panel);
 			}
 			

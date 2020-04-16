@@ -30,7 +30,6 @@ public class ShowClientsPanel extends JPanel {
 
 	Map clients;
 	LinkedList RegClients;
-	List<TrainingClass> trainingClasses;
 	List<Trainer> trainers;
 	Trainer verified;
 	
@@ -42,7 +41,7 @@ public class ShowClientsPanel extends JPanel {
 			if(e.getSource() == btnMainMenu) {
 				removeAll();
 				setVisible(false);
-				VerifiedTrainerMenu newPanel = new VerifiedTrainerMenu(clients, RegClients, trainingClasses, trainers, verified);
+				VerifiedTrainerMenu newPanel = new VerifiedTrainerMenu(clients, RegClients, trainers, verified);
 				add(newPanel);
 				validate();
 				setVisible(true);
@@ -52,14 +51,13 @@ public class ShowClientsPanel extends JPanel {
 
 	}
 	
-	public ShowClientsPanel(Map clients, LinkedList reg, List<TrainingClass> trainingClasses, List<Trainer> trainers, Trainer t) {
+	public ShowClientsPanel(Map clients, LinkedList reg, List<Trainer> trainers, Trainer t) {
 		this.clients = clients;
 		this.RegClients = reg;
-		this.trainingClasses = trainingClasses;
 		this.trainers = trainers;
 		this.verified = t;
 		
-		Client[] arrayClients = clients.toArray();
+		Client[] arrayClients = clients.toArray(verified);
 		
 		JPanel clientsView = new JPanel();
 		

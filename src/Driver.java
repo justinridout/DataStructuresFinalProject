@@ -27,14 +27,17 @@ public class Driver {
 		TrainingClass weights = new TrainingClass("Weight Training", "Build Strength");
 		TrainingClass crossfit = new TrainingClass("Crossfit", "Nobody likes this");
 		TrainingClass biking = new TrainingClass("Biking", "Fun Motivated Cardio");
-		
 		List<TrainingClass> justinsClasses = new ArrayList<TrainingClass>();
-		me.setClasses(justinsClasses);
-		List<Trainer> trainers = new ArrayList<Trainer>();
-		trainers.add(me);
 		justinsClasses.add(weights);
 		justinsClasses.add(crossfit);
 		justinsClasses.add(biking);
+		
+		
+		me.setClasses(justinsClasses);
+		List<Trainer> trainers = new ArrayList<Trainer>();
+		trainers.add(me);
+		
+		System.out.println(justinsClasses);
 		
 		/*me.setClasses(justinsClasses);
 		
@@ -46,7 +49,7 @@ public class Driver {
 		showMenu();*/
 		
 		JFrame frame = new JFrame();
-		MainMenuPanel panel = new MainMenuPanel(clients, registeredClients, justinsClasses, trainers);
+		MainMenuPanel panel = new MainMenuPanel(clients, registeredClients, trainers);
 		frame.add(panel);
 
 		frame.setSize(500, 500);

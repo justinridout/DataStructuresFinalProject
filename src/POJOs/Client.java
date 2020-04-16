@@ -7,17 +7,27 @@ public class Client {
 	private String address;
 	private String phoneNumber;
 	private String email;
+	private Trainer trainer;
 	
 	public Client() {
 		
 	}
 	
-	public Client(String f, String l, String add, String phone, String email) {
+	public Client(String f, String l, String add, String phone, String email, Trainer t) {
 		this.firstName = f;
 		this.lastName = l;
 		this.address = add;
 		this.phoneNumber = phone;
 		this.email = email;
+		this.trainer = t;
+	}
+
+	public Trainer getTrainer() {
+		return trainer;
+	}
+
+	public void setTrainer(Trainer trainer) {
+		this.trainer = trainer;
 	}
 
 	public String getFirstName() {

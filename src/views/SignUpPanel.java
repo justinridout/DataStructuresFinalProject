@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -35,8 +36,6 @@ public class SignUpPanel extends JPanel {
 	private JTextField txtGoal;
 	private JTextField txtEmail;
 	private JComboBox<?> trainingClassDropDown;
-	
-	// Add list to select trainer from
 
 	JButton btnClear = new JButton("Clear");
 	JButton btnSubmit = new JButton("Submit");
@@ -44,8 +43,8 @@ public class SignUpPanel extends JPanel {
 
 	Map clients;
 	LinkedList RegClients;
-	List<TrainingClass> trainingClasses;
 	List<Trainer> trainers;
+	Client verified;
 
 	class ButtonListener implements ActionListener {
 
@@ -62,16 +61,18 @@ public class SignUpPanel extends JPanel {
 					if (isValidDate(txtStartDate.getText()) && isValidDate(txtEndDate.getText())) {
 						if (clients.keyExists(txtEmail.getText())) {
 							if (trainingClassDropDown.getSelectedIndex() != -1) {
-								TrainingClass t = trainingClasses.get(trainingClassDropDown.getSelectedIndex());
+								TrainingClass t = verified.getTrainer().getClasses().get(trainingClassDropDown.getSelectedIndex());
 								toAdd = clients.getClient(txtEmail.getText());
 								regToAdd = new Registration(toAdd, LocalDate.parse(txtStartDate.getText()),
 										LocalDate.parse(txtEndDate.getText()), txtGoal.getText(), t);
-
 								RegClients.insertion(regToAdd);
 
+								
+								JOptionPane.showMessageDialog(null, "Information Submitted!");
+								
 								removeAll();
 								setVisible(false);
-								ThankYouPanel newPanel = new ThankYouPanel(clients, RegClients, trainingClasses, trainers);
+								VerifiedClientMenu newPanel = new VerifiedClientMenu(clients, RegClients,trainers, verified);
 								add(newPanel);
 								validate();
 								setVisible(true);
@@ -86,7 +87,7 @@ public class SignUpPanel extends JPanel {
 
 							removeAll();
 							setVisible(false);
-							AddClientPanel newPanel = new AddClientPanel(clients, RegClients, trainingClasses, trainers);
+							AddClientPanel newPanel = new AddClientPanel(clients, RegClients, trainers);
 							add(newPanel);
 							validate();
 							setVisible(true);
@@ -105,7 +106,7 @@ public class SignUpPanel extends JPanel {
 
 				removeAll();
 				setVisible(false);
-				ClientMainMenuPanel newPanel = new ClientMainMenuPanel(clients, RegClients, trainingClasses, trainers);
+				ClientMainMenuPanel newPanel = new ClientMainMenuPanel(clients, RegClients, trainers);
 				add(newPanel);
 				validate();
 				setVisible(true);
@@ -121,16 +122,17 @@ public class SignUpPanel extends JPanel {
 			txtEndDate.setText("");
 			txtGoal.setText("");
 		}
-
+		
+		
 	}
 
-	public SignUpPanel(Map clients, LinkedList reg, List<TrainingClass> trainingClasses, List<Trainer> trainers) {
+	public SignUpPanel(Map clients, LinkedList reg, List<Trainer> trainers, Client c) {
 
 		this.clients = clients;
 		this.RegClients = reg;
-		this.trainingClasses = trainingClasses;
 		this.trainers = trainers;
-
+		this.verified = c;
+		
 		JPanel form = new JPanel();
 
 		form.setLayout(new FormLayout(
@@ -173,7 +175,8 @@ public class SignUpPanel extends JPanel {
 
 		JLabel lblTrainingClass = new JLabel("Class");
 		form.add(lblTrainingClass, "2, 10, right, default");
-		trainingClassDropDown = new JComboBox(trainingClasses.toArray());
+		System.out.println(verified.getTrainer().getClasses());
+		trainingClassDropDown = new JComboBox(verified.getTrainer().getClassesArray());
 		form.add(trainingClassDropDown, "4, 10, 3, 1, fill, default");
 
 		ButtonListener bl = new ButtonListener();

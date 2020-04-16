@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -37,14 +39,14 @@ public class NewTrainerPanel extends JPanel {
 	
 	Map clients;
 	LinkedList RegClients;
-	List<TrainingClass> trainingClasses;
+
 	List<Trainer> trainers;
 
-	public NewTrainerPanel(Map clients, LinkedList reg, List<TrainingClass> trainingClasses, List<Trainer> trainers) {
+	public NewTrainerPanel(Map clients, LinkedList reg, List<Trainer> trainers) {
 		
 		this.clients = clients;
 		this.RegClients = reg;
-		this.trainingClasses = trainingClasses;
+
 		this.trainers = trainers;
 		
 		JPanel form = new JPanel();
@@ -117,14 +119,16 @@ public class NewTrainerPanel extends JPanel {
 				else if(containsDigit(txtFirstName.getText()) || containsDigit(txtLastName.getText())) {
 					JOptionPane.showMessageDialog(null, "Your name can not contain a number");
 				}
-				
+				else if(!validPhone(txtPhoneNumber.getText())) {
+					JOptionPane.showMessageDialog(null, "Invalid Phone Number");
+				}
 				else {
 					toAdd = new Trainer(txtFirstName.getText(), txtLastName.getText(), txtPassword.getText(), txtPhoneNumber.getText());
 					trainers.add(toAdd);
 					
 					removeAll();
 					setVisible(false);
-					ThankYouPanel newPanel = new ThankYouPanel(clients, RegClients, trainingClasses, trainers);
+					VerifiedTrainerMenu newPanel = new VerifiedTrainerMenu(clients, RegClients, trainers, toAdd);
 					add(newPanel);
 					validate();
 					setVisible(true);
@@ -140,7 +144,7 @@ public class NewTrainerPanel extends JPanel {
 
 				removeAll();
 				setVisible(false);
-				MainMenuPanel newPanel = new MainMenuPanel(clients, RegClients, trainingClasses, trainers);
+				MainMenuPanel newPanel = new MainMenuPanel(clients, RegClients, trainers);
 				add(newPanel);
 				validate();
 				setVisible(true);
@@ -169,6 +173,12 @@ public class NewTrainerPanel extends JPanel {
 		    }
 
 		    return containsDigit;
+		}
+		
+		public boolean validPhone(String ph) {
+			Pattern p = Pattern.compile("[0-9]{10}");
+			Matcher m = p.matcher(ph);
+			return (m.find() && m.group().equals(ph));
 		}
 		
 

@@ -12,54 +12,48 @@ import javax.swing.JPanel;
 
 import DataStructures.LinkedList;
 import DataStructures.Map;
+import POJOs.Client;
 import POJOs.Trainer;
 import POJOs.TrainingClass;
+import views.VerifiedTrainerMenu.ButtonListener;
 
-public class VerifiedTrainerMenu extends JPanel {
-
-	JButton btnShowClients = new JButton("Show Your Clients");
-	JButton btnShowRegisteredClients = new JButton("Show Your Registered Clients");
-	JButton btnAddTrainingClass = new JButton("Add new class");
-	JButton btnViewClasses = new JButton("View Your Classes");
+public class VerifiedClientMenu extends JPanel{
+	JButton btnRegister = new JButton("Register for a class");
 	JButton btnMainMenu = new JButton("Main Menu");
-
+	
 	Map clients;
 	LinkedList registered;
 	List<Trainer> trainers;
-	Trainer verified;
-
-	public VerifiedTrainerMenu(Map clients, LinkedList registered,
-			List<Trainer> trainers, Trainer t) {
+	Client verified;
+	
+	public VerifiedClientMenu(Map clients, LinkedList registered, 
+			List<Trainer> trainers, Client c) {
+		
 		this.trainers = trainers;
 		this.clients = clients;
 		this.registered = registered;
-		this.verified = t;
-
+		this.verified = c;
+		
+		
 		JLabel title = new JLabel("Please select an option from the menu");
-
+		
 		ButtonListener bl = new ButtonListener();
 		btnMainMenu.addActionListener(bl);
-		btnShowClients.addActionListener(bl);
-		btnShowRegisteredClients.addActionListener(bl);
-		btnAddTrainingClass.addActionListener(bl);
-		btnViewClasses.addActionListener(bl);
-
+		btnRegister.addActionListener(bl);
+		
 		JPanel buttons = new JPanel();
 
 		setLayout(new BorderLayout());
 		add(title, BorderLayout.NORTH);
 		buttons.setLayout(new BoxLayout(buttons, BoxLayout.PAGE_AXIS));
 		
-		
-		buttons.add(btnShowClients);
-		buttons.add(btnShowRegisteredClients);
-		buttons.add(btnAddTrainingClass);
-		buttons.add(btnViewClasses);
+		buttons.add(btnRegister);
 		buttons.add(btnMainMenu);
-
+		
 		add(buttons, BorderLayout.CENTER);
+		
 	}
-
+	
 	class ButtonListener implements ActionListener {
 
 		@Override
@@ -67,15 +61,9 @@ public class VerifiedTrainerMenu extends JPanel {
 			JPanel panel = new JPanel();
 			if (event.getSource() == btnMainMenu) {
 				panel = new MainMenuPanel(clients, registered, trainers);
-			} else if (event.getSource() == btnShowClients) {
-				panel = new ShowClientsPanel(clients, registered, trainers, verified);
-			} else if (event.getSource() == btnShowRegisteredClients) {
-				panel = new ShowRegisteredClientsPanel(clients, registered, trainers, verified);
-			}else if(event.getSource() == btnAddTrainingClass) {
-				panel = new AddTrainingClassesPanel(clients, registered, trainers, verified);
-			}else if(event.getSource() == btnViewClasses) {
-				panel = new ViewTrainingClassesPanel(clients, registered, trainers, verified);
-			}
+			} else if (event.getSource() == btnRegister) {
+				panel = new SignUpPanel(clients, registered, trainers, verified);
+			} 
 
 			showNewPanel(panel);
 		}

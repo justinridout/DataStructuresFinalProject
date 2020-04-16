@@ -4,6 +4,7 @@ package DataStructures;
  */
 
 import POJOs.Client;
+import POJOs.Trainer;
 
 public class Map {
 
@@ -180,6 +181,23 @@ public class Map {
 		
 		while (traverse != null) {
 			clients[index] = traverse.value;
+			traverse = traverse.next;
+			index++;
+		}
+		
+		return clients;
+	}
+	
+	public Client[] toArray(Trainer t) {
+		Client[] clients = new Client[this.numOfClients];
+		Node traverse = this.head;
+		int index = 0;
+		
+		while (traverse != null) {
+			if(traverse.value.getTrainer().equals(t)) {
+				clients[index] = traverse.value;
+			}
+			
 			traverse = traverse.next;
 			index++;
 		}

@@ -32,15 +32,12 @@ public class AddTrainingClassesPanel extends JPanel {
 
 	Map clients;
 	LinkedList RegClients;
-	List<TrainingClass> trainingClasses;
 	List<Trainer> trainers;
 	Trainer t;
 
-	public AddTrainingClassesPanel(Map clients, LinkedList reg, List<TrainingClass> trainingClasses,
-			List<Trainer> trainers, Trainer t) {
+	public AddTrainingClassesPanel(Map clients, LinkedList reg, List<Trainer> trainers, Trainer t) {
 		this.clients = clients;
 		this.RegClients = reg;
-		this.trainingClasses = trainingClasses;
 		this.trainers = trainers;
 		this.t = t;
 
@@ -90,7 +87,7 @@ public class AddTrainingClassesPanel extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(e.getSource() == btnSubmit) {
+			if (e.getSource() == btnSubmit) {
 				TrainingClass toAdd;
 
 				if (txtClassName.getText().equals("") || txtClassDesc.getText().equals("")) {
@@ -101,35 +98,34 @@ public class AddTrainingClassesPanel extends JPanel {
 					JOptionPane.showMessageDialog(null, "Information submitted!");
 					removeAll();
 					setVisible(false);
-					VerifiedTrainerMenu newPanel = new VerifiedTrainerMenu(clients, RegClients, trainingClasses, trainers, t);
+					VerifiedTrainerMenu newPanel = new VerifiedTrainerMenu(clients, RegClients, trainers, t);
 					add(newPanel);
 					validate();
 					setVisible(true);
 					repaint();
 
 				}
-			}
-			else if (e.getSource() == btnClear) {
+			} else if (e.getSource() == btnClear) {
 				clearAllFields();
 
 			} else if (e.getSource() == btnMainMenu) {
 
 				removeAll();
 				setVisible(false);
-				VerifiedTrainerMenu newPanel = new VerifiedTrainerMenu(clients, RegClients, trainingClasses, trainers, t);
+				VerifiedTrainerMenu newPanel = new VerifiedTrainerMenu(clients, RegClients, trainers, t);
 				add(newPanel);
 				validate();
 				setVisible(true);
 				repaint();
 			}
-			
+
 		}
-		
+
 		private void clearAllFields() {
 			// TODO Auto-generated method stub
 			txtClassName.setText("");
 			txtClassDesc.setText("");
 		}
 	}
-	
+
 }

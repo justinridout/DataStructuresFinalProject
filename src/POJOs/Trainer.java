@@ -1,5 +1,6 @@
 package POJOs;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Trainer {
@@ -19,6 +20,7 @@ public class Trainer {
 		this.lastName = l;
 		this.password = password;
 		this.phoneNumber = p;
+		this.classes = new ArrayList<TrainingClass>();
 	}
 	
 	public Trainer(String f, String l, String password, String p, List<TrainingClass> c) {
@@ -99,8 +101,7 @@ public class Trainer {
 
 	@Override
 	public String toString() {
-		return "Trainer [firstName=" + firstName + ", lastName=" + lastName + ", phoneNumber=" + phoneNumber
-				+ ", classes=" + classes + "]";
+		return firstName + " " + lastName;
 	}
 
 }

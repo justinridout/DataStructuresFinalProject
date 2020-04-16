@@ -30,9 +30,8 @@ public class ShowRegisteredClientsPanel extends JPanel{
 
 	Map clients;
 	LinkedList RegClients;
-	List<TrainingClass> trainingClasses;
 	List<Trainer> trainers;
-	Trainer verfied;
+	Trainer verified;
 	
 	class ButtonListener implements ActionListener {
 
@@ -42,7 +41,7 @@ public class ShowRegisteredClientsPanel extends JPanel{
 			if(e.getSource() == btnMainMenu) {
 				removeAll();
 				setVisible(false);
-				VerifiedTrainerMenu newPanel = new VerifiedTrainerMenu(clients, RegClients, trainingClasses, trainers, verfied);
+				VerifiedTrainerMenu newPanel = new VerifiedTrainerMenu(clients, RegClients, trainers, verified);
 				add(newPanel);
 				validate();
 				setVisible(true);
@@ -52,14 +51,13 @@ public class ShowRegisteredClientsPanel extends JPanel{
 
 	}
 	
-	public ShowRegisteredClientsPanel(Map clients, LinkedList reg, List<TrainingClass> trainingClasses, List<Trainer> trainers, Trainer t) {
+	public ShowRegisteredClientsPanel(Map clients, LinkedList reg, List<Trainer> trainers, Trainer t) {
 		this.clients = clients;
 		this.RegClients = reg;
-		this.trainingClasses = trainingClasses;
 		this.trainers = trainers;
-		this.verfied = t;
+		this.verified = t;
 		
-		Registration[] arrayClients = RegClients.toArray();
+		Registration[] arrayClients = RegClients.toArray(verified);
 		
 		JPanel clientsView = new JPanel();
 		
