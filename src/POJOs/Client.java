@@ -1,3 +1,6 @@
+//This is the object for clients.
+//Holds all the information that is requested when a client is created in the GUI
+
 package POJOs;
 
 public class Client {
@@ -22,6 +25,7 @@ public class Client {
 		this.trainer = t;
 	}
 
+	//Getters and setters
 	public Trainer getTrainer() {
 		return trainer;
 	}
@@ -70,6 +74,7 @@ public class Client {
 		this.email = email;
 	}
 
+	//To string. This is used in the trainers menu to view their clients 
 	@Override
 	public String toString() {
 		return firstName + ", " + lastName;

@@ -1,3 +1,4 @@
+//Very simple class to hold the name and description of a class the trainer teaches
 package POJOs;
 
 public class TrainingClass {

@@ -1,3 +1,7 @@
+//This class is to hold a client when they sign up for a class
+//This holds the client object and all the information asked when 
+//Signing up for a class 
+
 package POJOs;
 import java.time.LocalDate;
 
@@ -28,6 +32,7 @@ public class Registration {
 		this.tClass = t;
 	}
 
+	//Getters and setters
 	public Client getClient() {
 		return client;
 	}
@@ -68,6 +73,7 @@ public class Registration {
 		this.tClass = tClass;
 	}
 
+	//Used on the registered clients trainer panel
 	@Override
 	public String toString() {
 		return client.getFirstName() + ", " + client.getLastName() + ", Start: " + this.getStartDate();

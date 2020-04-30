@@ -1,3 +1,6 @@
+//This object is for when new trainers sign up.
+//This holds their basic information and a list of the classes that they train
+
 package POJOs;
 
 import java.util.ArrayList;
@@ -31,6 +34,8 @@ public class Trainer {
 		this.classes = c;
 	}
 
+	
+	//Getters and setters
 	public String getFirstName() {
 		return firstName;
 	}
@@ -59,6 +64,8 @@ public class Trainer {
 		return classes;
 	}
 	
+	//Simply just converts their training classes to an array 
+	//I did this because I was having issues with displaying in a drop down 
 	public TrainingClass[] getClassesArray() {
 		TrainingClass[] t = new TrainingClass[this.classes.size()];
 		
@@ -73,6 +80,7 @@ public class Trainer {
 		return t;
 	}
 
+	//Simply just returns each training class with the description in it
 	public String getClassesDescription() {
 		String printString = "";
 		for (int i = 0; i < this.classes.size(); i++){

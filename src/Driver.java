@@ -1,3 +1,21 @@
+/**************************************************************
+* Name        : Final Project
+* Author      : Justin Ridout
+* Created     : 4/30/20
+* Course      : CIS 152 Data Structures
+* Version     : 1.0
+* OS          : Windows 10
+* Copyright   : This is my own original work based on
+*               specifications issued by our instructor
+* Description : This is a client tracker program for personal trainers
+* Input		  : Asks the user for basic information based on the screen they are on
+* Output	  : Outputs the current GUI screen of the application
+* Academic Honesty: I attest that this is my original work.
+* I have not used unauthorized source code, either modified or 
+* unmodified. I have not given other fellow student(s) access to
+* my program.         
+***************************************************************/
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +36,17 @@ import views.SignUpPanel;
 
 public class Driver {
 
+	//Declaring the datastructures i use throughout the application
 	static LinkedList registeredClients = new LinkedList();
 	public static Map clients = new Map();
 	static Scanner in = new Scanner(System.in);
+	
+	//Defining a person trainer so there is one in the application
 	static Trainer me = new Trainer("Justin", "Ridout", "Test", "515-515-5151");
 	
 	public static void main(String[] args) {
+		
+		//Adding classes to that predefined trainer
 		TrainingClass weights = new TrainingClass("Weight Training", "Build Strength");
 		TrainingClass crossfit = new TrainingClass("Crossfit", "Nobody likes this");
 		TrainingClass biking = new TrainingClass("Biking", "Fun Motivated Cardio");
@@ -31,23 +54,15 @@ public class Driver {
 		justinsClasses.add(weights);
 		justinsClasses.add(crossfit);
 		justinsClasses.add(biking);
-		
-		
 		me.setClasses(justinsClasses);
+		
+		//Making a list of trainers 
 		List<Trainer> trainers = new ArrayList<Trainer>();
 		trainers.add(me);
 		
 		System.out.println(justinsClasses);
 		
-		/*me.setClasses(justinsClasses);
-		
-		Client c = new Client("Justin", "Ridout", "123", "123", "123");
-		clients.insert(c.getEmail(), c);
-		Registration r = new Registration(c, LocalDate.parse("2020-03-12"), "Strength", weights);
-		registeredClients.insertion(r);
-		
-		showMenu();*/
-		
+		//running the main menu JPanel
 		JFrame frame = new JFrame();
 		MainMenuPanel panel = new MainMenuPanel(clients, registeredClients, trainers);
 		frame.add(panel);
@@ -58,128 +73,4 @@ public class Driver {
 		
 		
 	}
-	
-	public static void showMenu() {
-		int userInput = 0;
-		while(userInput < 1 || userInput > 5) {
-			System.out.println("Welcome! Please enter a number");
-			System.out.println("1. New Client");
-			System.out.println("2. Sign Up for Class");
-			System.out.println("3. Show All Clients");
-			System.out.println("4. Show All Registered Clients");
-			System.out.println("5. Exit");
-			userInput = in.nextInt();
-			
-			if (userInput < 1 || userInput > 5) {
-				System.out.println("Invalid Number");
-			}
-		}
-		
-		if(userInput == 1) {
-			newClient();
-		}
-		else if(userInput == 2) {
-			registerClient();
-		}
-		else if(userInput == 3) {
-			showAllClients();
-		}
-		else if(userInput == 4) {
-			showAllRegistered();
-		}
-		else if(userInput == 5) {
-			System.out.println("Good bye");
-		}
-		
-	}
-
-	private static void newClient() {
-		Client c = new Client();
-		String userEmail = "";
-		in.nextLine();
-		System.out.println("Welcome new Customer");
-		System.out.println("Please enter your first name");
-		c.setFirstName(in.nextLine().toLowerCase());
-		System.out.println("Please enter your last name");
-		c.setLastName(in.nextLine().toLowerCase());
-		System.out.println("Please enter your Address");
-		c.setAddress(in.nextLine());
-		System.out.println("Please enter your Email");
-		userEmail = in.nextLine();
-		while (clients.keyExists(userEmail)) {
-			System.out.println("That email is already registered");
-			System.out.println("Please enter a different email");
-			userEmail = in.nextLine();
-		}
-		c.setEmail(userEmail);
-		System.out.println("Please enter your phone number");
-		c.setPhoneNumber(in.nextLine());
-		System.out.println("You are now in the system. Returning to Menu");
-		
-		clients.insert(c.getEmail(), c);
-		
-		showMenu();
-	}
-	
-	private static void registerClient() {
-		Registration r = new Registration();
-		String userStringInput="";
-		String userEmail = "";
-		in.nextLine();
-		
-		do {
-			System.out.println("Please enter the email you are registering as");
-			userEmail = in.nextLine();
-			
-			if (!clients.keyExists(userEmail)) {
-				System.out.println("No user under that email");
-			}
-		}while(!clients.keyExists(userEmail));
-		
-		Client c = clients.getClient(userEmail);
-		
-		r.setClient(c);
-		
-		int userInput = -1;
-		while(userInput < 0 || userInput >= me.getClasses().size()) {
-			System.out.println("Please select the class you want to participate in");
-			System.out.println(me.getClassesDescription());
-			userInput = in.nextInt();
-			if(userInput < 0 || userInput >= me.getClasses().size()) {
-				System.out.println("Invalid Class Number, Try Again");
-			}
-		}
-		
-		r.settClass(me.getClasses().get(userInput - 1));
-		in.nextLine();
-		System.out.println("Please enter a start date. (yyyy-mm-dd)");
-		r.setStartDate(LocalDate.parse(in.nextLine()));
-		
-		System.out.println("Do you want to add an end date (y/n)?");
-		userStringInput = in.nextLine();
-		if(userStringInput.equals("y")) {
-			System.out.println("Please enter an end date. (yyyy-mm-dd)");
-			r.setEndDate(LocalDate.parse(in.nextLine()));
-		}
-		
-		System.out.println("What do you wish to achieve during this class?");
-		r.setGoal(in.nextLine());
-		
-		System.out.println("You are successfully registered! Returning to menu...");
-		registeredClients.insertion(r);
-		showMenu();
-		
-	}
-	
-	private static void showAllClients() {
-		System.out.println(clients.print());
-		showMenu();
-	}
-	
-	private static void showAllRegistered() {
-		System.out.println(registeredClients.print());
-		showMenu();
-		
-	}
-
 }
